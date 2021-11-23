@@ -94,7 +94,7 @@ color_found = findColor(COLOR_PORT, brick);
                brick.MoveMotorAngleRel('A', -TURN_SPEED,500);
                brick.MoveMotorAngleRel('B',TURN_SPEED,500);
                pause(2);
-               brick.MoveMotorAngleRel('A',BASE_SPEED,900); %change 900 to however much
+               brick.MoveMotorAngleRel('A',BASE_SPEED,900); %change 900 to however much yes
                brick.MoveMotorAngleRel('B',BASE_SPEED,900); %change 900 to however much
                pause(2);
                direction = "right";
