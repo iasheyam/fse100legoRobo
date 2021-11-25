@@ -1,6 +1,12 @@
-%Remote Control
-global key
-InitKeyboard();
+% clear previous connection. Start a new connection with the Simulation. 
+clear;
+javaclasspath('/Applications/MATLAB_R2021b.app/toolbox/EV3_Toolbox/EV3');
+brick = Brick('ioType','wifi','wfAddr','127.0.0.1','wfPort',5555,'wfSN','0016533dbaf5');
+
+% %Remote Control
+% global key
+% InitKeyboard();
+
 % 1 inches is 2.54 cm
 INCHES_CONVERSION = 2.54;
 %ports number
@@ -271,6 +277,7 @@ function distance = distanceInches(brick, port)
    distance = brick.UltrasonicDist(port);
    distance = distance / INCHES_CONVERSION;
 end
+
 function result = hasWall(brick, port)
    distance = distanceInches(brick, port);
    result = distance < 24;
