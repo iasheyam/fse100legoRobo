@@ -41,6 +41,7 @@ while 1
 
         case "pickup"
             %pickup passenger.
+
         case "dropOff"
             %dropoff pessenger. 
     end
@@ -59,7 +60,18 @@ function direction = moveForward(brick, speed)
             brick.StopAllMotors('Brake');
             pause(1);
             %sense color code
-            %color = findColor(colorPort, brick);
+            color = findColor(brick, COLOR_PORT);
+            %update direction based on direction
+            if (color == green)
+                direction = dropOff;
+                break;
+            elseif (color == yellow)
+                direction = pickup;
+                break;
+            elseif (color == red)
+                direction = stop;
+                break;
+            end
         else
             disp("touch")
             brick.StopAllMotors('Brake');
@@ -106,25 +118,78 @@ function direction = turnLeft(brick, turningSpeed)
     direction = "straight";
 end
 
-% function direction = sensorData()
-%     %color = findColor(COLOR_PORT);
-%     touch = brick.TouchPressed(port);
-%     if touch == 0
-%         direction = 'straight';
-%     else
-%         direction = 'back';
-%     end
+% manual remote control mode
+function remoteControll()
+    while 1
+        pause(0.1);
+        switch key
+            case 'uparrow' %makes robot move forwards
+                brick.MoveMotorAngleRel('A',-100,1900,'Brake');
+                brick.MoveMotorAngleRel('B',-100,1900,'Brake');
 
+            case 'downarrow' %makes robot move backwards
+                brick.MoveMotorAngleRel('A',100,1900,'Brake');
+                brick.MoveMotorAngleRel('B',100,1900,'Brake');
 
-%     distance = wallDistance(ULTR_PORT);
-%     % todo what is distance of each square
-%     if distance > 24 %so that if the robot is not straght it can also detect wall.
-%         direction = right;
-%     elseif distance < 24
-%         direction = straight;
-%     end
+            case 'rightarrow' %makes robot turn right
+                brick.MoveMotorAngleRel('A',100,500,'Brake');
+                brick.MoveMotorAngleRel('B',100,-500,'Brake');
 
-%end
+            case 'd' %makes robot turn 90 degrees right
+                brick.MoveMotorAngleRel('A',100,500,'Brake');
+                brick.MoveMotorAngleRel('B',100,-500,'Brake');
+                pause(1.5);
+
+            case 'leftarrow' %makes robot turn left
+                brick.MoveMotorAngleRel('A',100,-500,'Brake');
+                brick.MoveMotorAngleRel('B',100,500,'Brake');
+
+            case 'a' %makes robot turn 90 degrees left
+                brick.MoveMotorAngleRel('A',100,-500,'Brake');
+                brick.MoveMotorAngleRel('B',100,500,'Brake');
+                pause(1.5);
+
+            case 'z'
+                brick.MoveMotorAngleRel('C',100,-1900,'Coast');
+
+            case 'x'
+                brick.MoveMotorAngleRel('C',100,1900,'Coast');
+
+            case 'm'
+                brick.playTone(75,440,100);
+                pause(0.2);
+                brick.playTone(75,466,100);
+                pause(0.2);
+                brick.playTone(75,523,100);
+                pause(0.2);
+                brick.playTone(75,587,750);
+
+            case 'v'
+                brick.playTone(75,523,250);
+                pause(0.2);
+                brick.playTone(75,523,250);
+                pause(0.2);
+                brick.playTone(75,523,250);
+                pause(0.25);
+                brick.playTone(75,523,500);
+                pause(0.25);
+                brick.playTone(75,415,500);
+                pause(0.3);
+                brick.playTone(75,466,500);
+                pause(0.25);
+                brick.playTone(75,523,500);
+                pause(0.3);
+                brick.playTone(75,466,500);
+                pause(0.1);
+                brick.playTone(75,523,1000);
+            case 0
+                brick.StopAllMotors('Coast');
+            case 'q'
+                direction = "straight"
+                break;
+        end
+    end
+end
 
 % fetch color sensor data
 function color = findColor(brick, port)
