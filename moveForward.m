@@ -1,5 +1,5 @@
 % move forward 24 inches.
-function direction = moveForward(brick, speed, COLOR_PORT)
+function direction = moveForward(brick, speed, COLOR_PORT, ULTRA_PORT)
     while 1
         touch = brick.TouchPressed(1);
         if (touch == 0)
@@ -22,7 +22,12 @@ function direction = moveForward(brick, speed, COLOR_PORT)
             elseif (color == 'red')
                 direction = 'stop';
                 break;
+            end            
+            direction = steering(brick, ULTRA_PORT);
+            if (direction ~= "straight")
+                break;
             end
+
         else
             disp("touch")
             brick.StopAllMotors('Brake');

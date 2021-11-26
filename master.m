@@ -22,12 +22,12 @@ while 1
         case "straight"
             % move forward 24 inches.
             % update direction variable
-            direction = moveForward(brick, speed, COLOR_PORT);
+            direction = moveForward(brick, speed, COLOR_PORT, ULTRA_PORT);
         case "back"
             %go back 12 inches.
             moveBack(brick);
             %update direction based on wall distance
-            direction = wallDistance(brick, ULTRA_PORT);
+            direction = turning(brick, ULTRA_PORT);
         case "right"
             %turn right function
             %update direction variable
@@ -36,8 +36,10 @@ while 1
             %turn left function
             %update direction variable
             direction = turnLeft(brick, turningSpeed);
-        case steerRight
-        case steerLeft
+        case "steerRight"
+            direction = steerRight(brick, turningSpeed);
+        case "steerLeft"
+            direction = steerLeft(brick, turningSpeed);
         case "stop"
             %stop for 3 seconds.
             brick.StopAllMotors('Brake');
