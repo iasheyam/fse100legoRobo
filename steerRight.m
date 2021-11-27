@@ -1,26 +1,21 @@
-function direction = steerRight(brick, turningSpeed)
-    %steer right    
+function direction = steerRight(brick, turningSpeed, TOUCH_PORT, ULTRA_PORT)
+    %steer right
     pause(1);
-    brick.MoveMotorAngleRel('A', turningSpeed,90,'Brake');
-    brick.MoveMotorAngleRel('B',-turningSpeed,90,'Brake');
+    brick.MoveMotorAngleRel('A', turningSpeed,180);
+    brick.MoveMotorAngleRel('B',-turningSpeed,180);
     brick.WaitForMotor('A');
     brick.WaitForMotor('B');
-    brick.StopAllMotors('Brake');
-    pause(1);
-    
-    %go forward
-    brick.MoveMotor('AB',-100);
     pause(2);
-    brick.StopAllMotors('Brake');
-    pause(1);
-    
-    %steer left
-    brick.MoveMotorAngleRel('A', -turningSpeed,90,'Brake');
-    brick.MoveMotorAngleRel('B',turningSpeed,90,'Brake');
-    brick.WaitForMotor('A');
-    brick.WaitForMotor('B');
-    brick.StopAllMotors('Brake');
-    pause(1);
+ 
+%         %steer left
+%         disp("steering right");
+%         pause(1);
+%         brick.MoveMotorAngleRel('A', -turningSpeed,180);
+%         brick.MoveMotorAngleRel('B',turningSpeed,180);
+%         brick.WaitForMotor('A');
+%         brick.WaitForMotor('B');
+%         pause(1);
+%         turned = 0
    
     %update direction variable
     direction = "straight";

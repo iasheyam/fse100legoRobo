@@ -1,29 +1,26 @@
 % move forward 24 inches.
-function direction = moveForward(brick, speed, COLOR_PORT, ULTRA_PORT)
+function [direction, steeringStatus1] = moveForward(brick, speed, COLOR_PORT, ULTRA_PORT, steeringStatus)
     while 1
         touch = brick.TouchPressed(1);
         if (touch == 0)
             disp("No Touch");
             %to ensure all motors are at stop
-            brick.StopAllMotors('Brake');
-            brick.MoveMotor('AB',-speed);
-            pause(1);
-            brick.StopAllMotors('Brake');
-            pause(1);
             %sense color code
             color = findColor(brick, COLOR_PORT);
             %update direction based on direction
-            if (color == 'green')
-                direction = 'dropOff';
+            if (color == "green")
+                direction = "dropOff";
                 break;
-            elseif (color == 'yellow')
+            elseif (color == "yellow")
                 direction = 'pickup';
                 break;
-            elseif (color == 'red')
+            elseif (color == "red")
                 direction = 'stop';
                 break;
-            end            
-            direction = steering(brick, ULTRA_PORT);
+            end
+            movingAhead(brick, speed);
+            [direction, steeringStatus1] = steering(brick, ULTRA_PORT, steeringStatus);
+            steeringStatus = steeringStatus1;
             if (direction ~= "straight")
                 break;
             end
@@ -32,7 +29,7 @@ function direction = moveForward(brick, speed, COLOR_PORT, ULTRA_PORT)
             disp("touch")
             brick.StopAllMotors('Brake');
             direction = 'back';
-            disp(direction);
+            steeringStatus1 = steeringStatus;
             break;
         end
     end

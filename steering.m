@@ -1,13 +1,28 @@
-function direction = steering(brick, port)
+%detecting the wall and steering right or left based on the distance from
+%the wall.
+function [direction,steeringStatus1] = steering(brick, port, steeringStatus)
     distance = wallDistance(brick, port);
-    if (distance < 6)
+    if ((distance < 8) && (steeringStatus == "off"))
         direction = "steerLeft";
-        disp("steering left");
-    elseif (distance > 14 && distance < 24)
+        steeringStatus1 = 'left';
+    elseif ((distance > 11 && distance < 19) && (steeringStatus == "off"))
         direction = "steerRight";
-        disp("steering right");
+        steeringStatus1 = 'right';
+    elseif ((distance > 8 && distance < 11))
+        if (steeringStatus ~= "off")
+            if (steeringStatus == "left")    
+                direction = "steerRight";
+                steeringStatus1 = 'off';
+            elseif (steeringStatus == "right")
+                direction = "steerLeft";
+                steeringStatus1 = "off";
+            end
+        else
+            steeringStatus1 = "off";
+            direction = "straight";
+        end
     else
         direction = "straight";
+        steeringStatus1 = steeringStatus;
     end
-
 end

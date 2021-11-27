@@ -1,11 +1,15 @@
 function direction = turnLeft(brick, turningSpeed)
+    disp('turning left');
     pause(2);
-    brick.MoveMotorAngleRel('A', -turningSpeed,950,'Brake');
-    brick.MoveMotorAngleRel('B',turningSpeed,950,'Brake');
+    brick.StopAllMotors('Brake');
     brick.WaitForMotor('A');
     brick.WaitForMotor('B');
-    brick.StopAllMotors('Brake');
-    pause(2);
+    brick.MoveMotorAngleRel('A', -turningSpeed,1000);
+    brick.MoveMotorAngleRel('B',turningSpeed,1000);
+    brick.WaitForMotor('A');
+    brick.WaitForMotor('B');
+    pause(4);
+    disp('turning left complete');
     %update direction variable
     direction = "straight";
 end
