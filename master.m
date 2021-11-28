@@ -24,15 +24,18 @@ while 1
             [direction,steeringStatus1] = moveForward(brick, speed, COLOR_PORT, ULTRA_PORT, steeringStatus);
             steeringStatus = steeringStatus1;
         case "back"
+            steeringStatus = "off";
             %go back 12 inches.
             moveBack(brick);
             %update direction based on wall distance
             direction = turning(brick, ULTRA_PORT);
         case "right"
+            steeringStatus = "off";
             %turn right function
             %update direction variable
             direction = turnRight(brick, turningSpeed);
         case "left"
+            steeringStatus = "off";
             %turn left function
             %update direction variable
             direction = turnLeft(brick, turningSpeed);
@@ -47,9 +50,11 @@ while 1
             movingAhead(brick, speed);            
             direction = 'straight';
         case "pickup"
+            steeringStatus = "off";
             % starting remote control in pickupzone
             direction = remoteControll(brick);
         case "dropOff"
+            steeringStatus = "off";
             direction = remoteControll(brick);
     end
 end

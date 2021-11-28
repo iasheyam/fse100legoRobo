@@ -10,12 +10,15 @@ function [direction, steeringStatus1] = moveForward(brick, speed, COLOR_PORT, UL
             %update direction based on direction
             if (color == "green")
                 direction = "dropOff";
+                steeringStatus1 = steeringStatus;
                 break;
             elseif (color == "yellow")
                 direction = 'pickup';
+                steeringStatus1 = steeringStatus;
                 break;
             elseif (color == "red")
                 direction = 'stop';
+                steeringStatus1 = steeringStatus;
                 break;
             end
             movingAhead(brick, speed);

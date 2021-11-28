@@ -8,7 +8,7 @@ function [direction,steeringStatus1] = steering(brick, port, steeringStatus)
     elseif ((distance > 11 && distance < 19) && (steeringStatus == "off"))
         direction = "steerRight";
         steeringStatus1 = 'right';
-    elseif ((distance > 8 && distance < 11))
+    elseif ((distance > 9 && distance < 10))
         if (steeringStatus ~= "off")
             if (steeringStatus == "left")    
                 direction = "steerRight";

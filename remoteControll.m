@@ -32,10 +32,9 @@ function direction = remoteControll(brick)
                 pause(1.5);
 
             case 'z'
-                brick.MoveMotorAngleRel('C',100,-1900,'Coast');
-
+                brick.MoveMotorAngleRel('C',50,-10,'Coast');
             case 'x'
-                brick.MoveMotorAngleRel('C',100,1900,'Coast');
+                brick.MoveMotorAngleRel('C',50,10,'Coast');
 
             case 'm'
                 brick.playTone(75,440,100);
